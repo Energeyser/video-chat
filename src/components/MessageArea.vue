@@ -1,7 +1,10 @@
 <template>
   <div class="text-area">
-    <div v-draggable="draggableValue" style="position: absolute;"> 
-      This is a test. {{posX}}, {{posY}}
+    <div id="1" class="draggable" v-draggable="box1" style="position: absolute;"> 
+      This is a test. (distance = {{distance}})
+    </div>
+    <div id="2" class="draggable" v-draggable="box2" style="position: absolute;"> 
+      This is another test. (distance = {{distance}})
     </div>
     <div class="text-area__input">
       <textarea 
@@ -30,11 +33,22 @@ export default {
   data: function() {
     return {
       message: "",
-      draggableValue: { }
+      distance:0,
+      posBox1: {
+        posX :0,
+        posY :0
+       },
+      posBox2: { 
+        posX:0 ,
+        posY :0
+      },
+      box1:{},
+      box2:{}
     };
   },
   mounted() {
-            this.draggableValue.onPositionChange = this.onPosChanged;
+             this.box1.onPositionChange = this.onPosChanged;
+             this.box2.onPositionChange = this.onPosChanged;
         },
   methods: {
     sendMessage() {
@@ -42,11 +56,37 @@ export default {
       this.$emit("send-message", msg);
       this.message = "";
     },
-    onPosChanged: function(pos) {
-                console.log("left corner", pos.x);
-                console.log("top corner", pos.y);
-            }
-  }
+    onPosChanged: function(positionDiff, absolutePosition, event) {
+      var targ;
+      if (!event) event = window.event;
+      if (event.target) targ = event.target;
+      else if (event.srcElement) targ = event.srcElement;
+      if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+      //  this.posBox1.posX = absolutePosition.left
+      //  this.posBox2.posY = absolutePosition.top
+       console.log(targ.id)
+       if(targ.id == 1){
+          console.log("avantX", this.posBox1.posX)
+          console.log("avantY", this.posBox1.posY)
+          this.posBox1.posX = absolutePosition.left
+          this.posBox1.posY = absolutePosition.top
+          console.log("apresX", this.posBox1.posX)
+          console.log("apresY", this.posBox1.posY)
+       }else if(targ.id == 2){
+         console.log("avantX", this.posBox2.posX)
+          console.log("avantY", this.posBox2.posY)
+          this.posBox2.posX = absolutePosition.left
+          this.posBox2.posY = absolutePosition.top
+          console.log("apresX", this.posBox2.posX)
+          console.log("apresY", this.posBox2.posY)
+       }
+        this.distance = Math.sqrt(Math.pow(this.posBox2.posX - this.posBox1.posX, 2) + Math.pow(this.posBox2.posY - this.posBox1.posY,2));
+        console.log("distance = ", this.distance); 
+        
+      }
+
+   }
 };
 </script>
 
@@ -58,6 +98,16 @@ export default {
   display: flex;
   max-width: 1300px;
   margin-top: 5px;
+
+  .draggable{
+   border: solid;
+   
+  }
+
+  .draggable:hover{
+    cursor:move;
+  }
+
 
   &__input {
     width: 100%;
