@@ -1,5 +1,8 @@
 <template>
   <div class="text-area">
+    <div v-draggable="draggableValue" style="position: absolute;"> 
+      This is a test. {{posX}}, {{posY}}
+    </div>
     <div class="text-area__input">
       <textarea 
         name id 
@@ -17,20 +20,32 @@
 
 
 <script>
+import { Draggable } from 'draggable-vue-directive'
 export default {
   name: "MessageArea",
   props: {},
+  directives:{
+    Draggable,
+  },
   data: function() {
     return {
-      message: ""
+      message: "",
+      draggableValue: { }
     };
   },
+  mounted() {
+            this.draggableValue.onPositionChange = this.onPosChanged;
+        },
   methods: {
     sendMessage() {
       const msg = this.message.replace(/\n/g,'')
       this.$emit("send-message", msg);
       this.message = "";
-    }
+    },
+    onPosChanged: function(pos) {
+                console.log("left corner", pos.x);
+                console.log("top corner", pos.y);
+            }
   }
 };
 </script>
