@@ -9,7 +9,8 @@ export default new Vuex.Store({
     room: undefined,
     username: undefined,
     status: STATUS_OPTIONS.available,
-    rooms: []
+    rooms: [],
+    distance: 0
   },
   mutations: {
     joinRoom(state, { room, username }) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
       if(state.status === STATUS_OPTIONS.unavailable) nextStatus = STATUS_OPTIONS.available
 
       state.status = nextStatus
+    },
+    distanceChanged(state, distance){
+      state.distance = distance
     }
   },
   actions: {
@@ -50,6 +54,9 @@ export default new Vuex.Store({
     },
     changeStatus({ commit }) {
       commit('changeStatus')
+    },
+    distanceChanged({ commit }, distance){
+      commit('distanceChanged', distance)
     }
   }
 })

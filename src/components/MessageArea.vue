@@ -1,10 +1,10 @@
 <template>
   <div class="text-area">
     <div id="1" class="draggable" v-draggable="box1" style="position: absolute;"> 
-      This is a test. (distance = {{distance}})
+      1
     </div>
     <div id="2" class="draggable" v-draggable="box2" style="position: absolute;"> 
-      This is another test. (distance = {{distance}})
+      2
     </div>
     <div class="text-area__input">
       <textarea 
@@ -24,6 +24,7 @@
 
 <script>
 import { Draggable } from 'draggable-vue-directive'
+import { STORE_ACTIONS } from "./../utils/config";
 export default {
   name: "MessageArea",
   props: {},
@@ -82,6 +83,7 @@ export default {
           console.log("apresY", this.posBox2.posY)
        }
         this.distance = Math.sqrt(Math.pow(this.posBox2.posX - this.posBox1.posX, 2) + Math.pow(this.posBox2.posY - this.posBox1.posY,2));
+        this.$store.dispatch(STORE_ACTIONS.distanceChanged,this.distance)
         console.log("distance = ", this.distance); 
         
       }

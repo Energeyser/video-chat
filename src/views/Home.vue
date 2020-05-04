@@ -56,7 +56,7 @@ export default {
       this.rooms = data.body;
       this.$store.dispatch(STORE_ACTIONS.setRooms, this.rooms)
     } catch (error) {
-      this.error = this.defaultError
+      this.error = error
       console.log(error);
     }
   },

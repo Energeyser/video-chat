@@ -2,9 +2,9 @@
   <div class="video">
     <div class="video__partner">
       <rotate-square5 v-if="!remoteStream" class="video__spinner"></rotate-square5>
-      <video id="remoteVideo" class="video__spinner" autoplay></video>
+      <video id="remoteVideo" class="video__spinner" autoplay controls></video>
     </div>
-    <video id="localVideo" class="video__myself" autoplay></video>
+    <video id="localVideo" class="video__myself" autoplay controls></video>
   </div>
 </template>
 
@@ -75,6 +75,8 @@ export default {
   mounted() {
     this.myVideo = document.getElementById("localVideo");
     this.remoteVideo = document.getElementById("remoteVideo");
+    this.remoteVideo.volume = 0.2
+    this.remoteVideo.shoz
   },
   methods: {
     callFriend() {
