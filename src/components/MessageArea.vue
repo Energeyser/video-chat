@@ -1,9 +1,9 @@
 <template>
   <div class="text-area">
-    <div id="1" class="draggable" v-draggable="box1" style="position: absolute;"> 
+    <div id="1" class="draggable" v-draggable="box1"> 
       1
     </div>
-    <div id="2" class="draggable" v-draggable="box2" style="position: absolute;"> 
+    <div id="2" class="draggable" v-draggable="box2"> 
       2
     </div>
     <div class="text-area__input">
@@ -94,9 +94,12 @@ export default {
   margin-top: 5px;
 
   .draggable{
-   border: solid;
-   width: 30px;
-   height : 30px;
+    border: solid;
+    width: 30px;
+    height : 30px;
+    position: absolute;
+    z-index: 10;
+
   }
 
   .draggable:hover{

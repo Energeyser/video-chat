@@ -52,7 +52,7 @@ export default {
   },
   async created() {
     try {
-      const data = await this.$http.get(`http://${url}/rooms`)
+      const data = await this.$http.get(`https://${url}/rooms`)
       this.rooms = data.body;
       this.$store.dispatch(STORE_ACTIONS.setRooms, this.rooms)
     } catch (error) {
@@ -71,7 +71,7 @@ export default {
       }
 
       try {
-        let response = await this.$http.post(`http://${url}/auth/login`, data)
+        let response = await this.$http.post(`https://${url}/auth/login`, data)
         if (response.body.code === 400 || response.body.code === 401 || response.body.code === 500) {
           this.error = response.body.message
           return 

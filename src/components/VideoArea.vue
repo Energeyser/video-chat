@@ -75,6 +75,7 @@ export default {
   },
   mounted() {
     this.myVideo = document.getElementById("localVideo");
+    this.myVideo.volume = 0
     this.remoteVideo = document.getElementById("remoteVideo");
 
     
@@ -234,13 +235,13 @@ export default {
       if(close && close !== oldVal.close){
         this.resetConnection();
       }
-    },volume : function(newVal, oldVal){
+    },volume : function(newVal){
       this.remoteVideo.volume = newVal
     }
   },
   computed:{
     volume : function(){
-      return Math.min( 1, (1 / (0.01 *this.$store.state.distance)) )
+      return Math.min( 1, (1 / (0.02 *this.$store.state.distance)) )
     }
   }
 };
@@ -254,7 +255,7 @@ export default {
     height: 100%;
   }
   &__myself {
-    bottom: 50;
+    bottom: 0;
     position: absolute;
     float: right;
     right: 0;

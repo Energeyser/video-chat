@@ -210,7 +210,7 @@ export default {
     },
     async logout() {
       try {
-        let response = await this.$http.post(`http://${url}/auth/logout`, {
+        let response = await this.$http.post(`https://${url}/auth/logout`, {
           username: this.$store.state.username
         });
         if (response.body.code === 200) {
