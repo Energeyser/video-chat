@@ -1,5 +1,6 @@
 <template>
   <div class="video">
+    <div>Volume : {{volume}}</div>
     <div class="video__partner">
       <rotate-square5 v-if="!remoteStream" class="video__spinner"></rotate-square5>
       <video id="remoteVideo" class="video__spinner" autoplay controls></video>
@@ -51,7 +52,7 @@ export default {
       offerToReceiveVideo: 1
     },
 
-    username: ""
+    username: "",
   }),
   async created() {
     this.username = this.$store.state.username;
@@ -75,8 +76,8 @@ export default {
   mounted() {
     this.myVideo = document.getElementById("localVideo");
     this.remoteVideo = document.getElementById("remoteVideo");
-    this.remoteVideo.volume = 0.2
-    this.remoteVideo.shoz
+
+    
   },
   methods: {
     callFriend() {
@@ -203,6 +204,7 @@ export default {
         if(!this.remoteVideo.srcObject && event.stream){
           this.remoteStream = event.stream
           this.remoteVideo.srcObject = this.remoteStream ;
+          
         }
     },
 
@@ -232,6 +234,13 @@ export default {
       if(close && close !== oldVal.close){
         this.resetConnection();
       }
+    },volume : function(newVal, oldVal){
+      this.remoteVideo.volume = newVal
+    }
+  },
+  computed:{
+    volume : function(){
+      return Math.min( 1, (1 / (0.01 *this.$store.state.distance)) )
     }
   }
 };
@@ -245,12 +254,12 @@ export default {
     height: 100%;
   }
   &__myself {
-    bottom: 0;
+    bottom: 50;
     position: absolute;
     float: right;
     right: 0;
-    width: 150px;
-    height: 100px;
+    width: 250px;
+    height: 200px;
     z-index: 2;
   }
   &__spinner {

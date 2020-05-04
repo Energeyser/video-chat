@@ -68,19 +68,11 @@ export default {
       //  this.posBox2.posY = absolutePosition.top
        console.log(targ.id)
        if(targ.id == 1){
-          console.log("avantX", this.posBox1.posX)
-          console.log("avantY", this.posBox1.posY)
           this.posBox1.posX = absolutePosition.left
           this.posBox1.posY = absolutePosition.top
-          console.log("apresX", this.posBox1.posX)
-          console.log("apresY", this.posBox1.posY)
        }else if(targ.id == 2){
-         console.log("avantX", this.posBox2.posX)
-          console.log("avantY", this.posBox2.posY)
           this.posBox2.posX = absolutePosition.left
           this.posBox2.posY = absolutePosition.top
-          console.log("apresX", this.posBox2.posX)
-          console.log("apresY", this.posBox2.posY)
        }
         this.distance = Math.sqrt(Math.pow(this.posBox2.posX - this.posBox1.posX, 2) + Math.pow(this.posBox2.posY - this.posBox1.posY,2));
         this.$store.dispatch(STORE_ACTIONS.distanceChanged,this.distance)
@@ -103,7 +95,8 @@ export default {
 
   .draggable{
    border: solid;
-   
+   width: 30px;
+   height : 30px;
   }
 
   .draggable:hover{
